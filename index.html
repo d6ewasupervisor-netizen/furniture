@@ -647,6 +647,164 @@
             background: #dee2e6;
         }
 
+        /* Assembly Guide Contents Overlay */
+        .assembly-contents-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 1500;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .assembly-contents-overlay.active {
+            display: flex;
+        }
+
+        .assembly-contents-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .assembly-contents-card h2 {
+            color: #1e3c72;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #1e3c72;
+            text-align: center;
+        }
+
+        .assembly-contents-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .assembly-toc-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .assembly-toc-item:hover {
+            background: #e3f2fd;
+            border-color: #2196F3;
+            transform: translateX(5px);
+        }
+
+        .assembly-toc-item .toc-title {
+            flex: 1;
+            font-weight: 500;
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        .assembly-toc-item .toc-page {
+            color: #666;
+            font-size: 0.85rem;
+            margin-left: 10px;
+        }
+
+        .assembly-toc-item .toc-arrow {
+            color: #999;
+            margin-left: 8px;
+        }
+
+        .assembly-contents-close {
+            display: block;
+            margin: 20px auto 0;
+            padding: 12px 30px;
+            background: #1e3c72;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .assembly-contents-close:hover {
+            background: #2a5298;
+        }
+
+        /* Floating Contents Button */
+        .floating-contents-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.4);
+            z-index: 450;
+            transition: all 0.3s ease;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .floating-contents-btn:hover {
+            transform: translateX(-50%) translateY(-3px);
+            box-shadow: 0 6px 20px rgba(30, 60, 114, 0.5);
+        }
+
+        .floating-contents-btn.visible {
+            display: flex;
+        }
+
+        @media (max-width: 900px) {
+            .assembly-contents-columns {
+                grid-template-columns: 1fr;
+            }
+
+            .assembly-toc-item {
+                padding: 10px 14px;
+            }
+
+            .assembly-toc-item .toc-title {
+                font-size: 0.9rem;
+            }
+
+            .floating-contents-btn {
+                bottom: 90px;
+                padding: 10px 20px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .assembly-contents-card {
+                padding: 15px;
+            }
+
+            .assembly-contents-card h2 {
+                font-size: 1.2rem;
+            }
+        }
+
         /* Loading spinner */
         .loading {
             display: none;
@@ -1113,6 +1271,77 @@
         </div>
     </div>
 
+    <!-- Assembly Guide Contents Overlay -->
+    <div class="assembly-contents-overlay" id="assembly-contents-overlay">
+        <div class="assembly-contents-card">
+            <h2>Contents</h2>
+            <div class="assembly-contents-columns">
+                <div class="assembly-toc-item" data-page="2">
+                    <span class="toc-title">Goals of Furniture Service</span>
+                    <span class="toc-arrow">→</span>
+                </div>
+                <div class="assembly-toc-item" data-page="3">
+                    <span class="toc-title">Check In</span>
+                    <span class="toc-arrow">→</span>
+                </div>
+                <div class="assembly-toc-item" data-page="4">
+                    <span class="toc-title">Partners at Store Level</span>
+                    <span class="toc-arrow">→</span>
+                </div>
+                <div class="assembly-toc-item" data-page="5">
+                    <span class="toc-title">Furniture Categories and Brands</span>
+                    <span class="toc-arrow">→</span>
+                </div>
+                <div class="assembly-toc-item" data-page="6">
+                    <span class="toc-title">Assembly Sign-Off sheet</span>
+                    <span class="toc-arrow">→</span>
+                </div>
+                <div class="assembly-toc-item" data-page="7">
+                    <span class="toc-title">Customer Assemblies</span>
+                    <span class="toc-arrow">→</span>
+                </div>
+                <div class="assembly-toc-item" data-page="8">
+                    <span class="toc-title">Grills and BBQ Builds</span>
+                    <span class="toc-arrow">→</span>
+                </div>
+                <div class="assembly-toc-item" data-page="9">
+                    <span class="toc-title">Items We Do Not Assemble</span>
+                    <span class="toc-arrow">→</span>
+                </div>
+                <div class="assembly-toc-item" data-page="10">
+                    <span class="toc-title">Tools</span>
+                    <span class="toc-arrow">→</span>
+                </div>
+                <div class="assembly-toc-item" data-page="11">
+                    <span class="toc-title">Assembly Tips</span>
+                    <span class="toc-arrow">→</span>
+                </div>
+                <div class="assembly-toc-item" data-page="12">
+                    <span class="toc-title">Clean Up Work Area</span>
+                    <span class="toc-arrow">→</span>
+                </div>
+                <div class="assembly-toc-item" data-page="13">
+                    <span class="toc-title">Inspecting Floor Displays</span>
+                    <span class="toc-arrow">→</span>
+                </div>
+                <div class="assembly-toc-item" data-page="14">
+                    <span class="toc-title">Check out Requirements</span>
+                    <span class="toc-arrow">→</span>
+                </div>
+                <div class="assembly-toc-item" data-page="15">
+                    <span class="toc-title">Using PROD</span>
+                    <span class="toc-arrow">→</span>
+                </div>
+            </div>
+            <button class="assembly-contents-close" id="assembly-contents-close">Close</button>
+        </div>
+    </div>
+
+    <!-- Floating Contents Button -->
+    <button class="floating-contents-btn" id="floating-contents-btn">
+        <span>Contents</span>
+    </button>
+
     <!-- Loading overlay -->
     <div class="loading" id="loading">
         <div class="spinner"></div>
@@ -1167,6 +1396,9 @@
         const sidebarToggle = document.getElementById('sidebar-toggle');
         const pdfViewer = document.getElementById('pdf-viewer');
         const pdfContainer = document.getElementById('pdf-container');
+        const assemblyContentsOverlay = document.getElementById('assembly-contents-overlay');
+        const assemblyContentsClose = document.getElementById('assembly-contents-close');
+        const floatingContentsBtn = document.getElementById('floating-contents-btn');
 
         // Load PDF
         async function loadPdf(url) {
@@ -1247,12 +1479,23 @@
             isOnHomePage = true;
             homePage.classList.remove('hidden');
             homeBtn.classList.add('active');
+            floatingContentsBtn.classList.remove('visible');
         }
 
         function hideHomePage() {
             isOnHomePage = false;
             homePage.classList.add('hidden');
             homeBtn.classList.remove('active');
+            updateFloatingContentsBtn();
+        }
+
+        function updateFloatingContentsBtn() {
+            // Show floating contents button only for assembly guide PDF when not on home page
+            if (!isOnHomePage && currentDocName === 'Furniture Assembly 01-20-2026.pdf') {
+                floatingContentsBtn.classList.add('visible');
+            } else {
+                floatingContentsBtn.classList.remove('visible');
+            }
         }
 
         // Document selector toggle
@@ -1536,6 +1779,41 @@
             }
         });
 
+        // Assembly Guide Contents - Floating button click
+        floatingContentsBtn.addEventListener('click', () => {
+            assemblyContentsOverlay.classList.add('active');
+        });
+
+        // Assembly Guide Contents - Close button
+        assemblyContentsClose.addEventListener('click', () => {
+            assemblyContentsOverlay.classList.remove('active');
+        });
+
+        // Assembly Guide Contents - Close on overlay click
+        assemblyContentsOverlay.addEventListener('click', (e) => {
+            if (e.target === assemblyContentsOverlay) {
+                assemblyContentsOverlay.classList.remove('active');
+            }
+        });
+
+        // Assembly Guide Contents - Navigate to page on TOC item click
+        document.querySelectorAll('.assembly-toc-item').forEach(item => {
+            item.addEventListener('click', async () => {
+                const targetPage = parseInt(item.dataset.page);
+                if (targetPage && targetPage <= totalPages) {
+                    currentPage = targetPage;
+                    await renderPage(currentPage);
+                    assemblyContentsOverlay.classList.remove('active');
+                } else if (targetPage > totalPages) {
+                    // If page doesn't exist, go to last available page
+                    currentPage = totalPages;
+                    await renderPage(currentPage);
+                    assemblyContentsOverlay.classList.remove('active');
+                    showToast(`Navigated to page ${totalPages} (document has ${totalPages} pages)`);
+                }
+            });
+        });
+
         // Store input validation
         storeInput.addEventListener('input', () => {
             storeError.classList.remove('show');
@@ -1562,14 +1840,25 @@
         // Keyboard navigation
         document.addEventListener('keydown', async (e) => {
             if (e.target.tagName === 'INPUT') return;
+
+            // Handle Escape key for closing overlays
+            if (e.key === 'Escape') {
+                if (assemblyContentsOverlay.classList.contains('active')) {
+                    assemblyContentsOverlay.classList.remove('active');
+                    return;
+                }
+                if (!isOnHomePage) {
+                    showHomePage();
+                }
+                return;
+            }
+
             if (isOnHomePage) return;
 
             if (e.key === 'ArrowLeft') {
                 await goToPrevPage();
             } else if (e.key === 'ArrowRight') {
                 await goToNextPage();
-            } else if (e.key === 'Escape') {
-                showHomePage();
             }
         });
 
