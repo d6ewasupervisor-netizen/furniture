@@ -856,6 +856,66 @@
             display: block;
         }
 
+        /* Grill AVF Callout */
+        .grill-callout {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 4px 15px rgba(238, 90, 90, 0.3);
+            border: 2px solid #ff5252;
+        }
+
+        .grill-callout-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .grill-callout-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .grill-callout-link {
+            display: inline-block;
+            margin-top: 10px;
+            background: white;
+            color: #ee5a5a;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .grill-callout-link:hover {
+            background: #fff5f5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .grill-callout-toc {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            color: #856404;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+
+        .grill-callout-toc strong {
+            color: #664d03;
+        }
+
         /* Toast notification */
         .toast {
             position: fixed;
@@ -1034,6 +1094,9 @@
                     <a href="#" class="doc-link" data-doc="Recommended Tools.pdf">
                         🔧 Recommended Tools
                     </a>
+                    <a href="#" class="doc-link" data-doc="Grill AVF 2025, updated 6.1.25.PDF">
+                        🔥 Grill AVF 2025
+                    </a>
                     <a href="#" class="doc-link" data-doc="Grill Sign-off.pdf">
                         ✅ Grill Sign-off
                     </a>
@@ -1092,6 +1155,30 @@
                                 </div>
                                 <div class="contents-item-actions">
                                     <button class="download-single-btn" data-doc="Recommended Tools.pdf" title="Download">
+                                        ⬇️ <span>Download</span>
+                                    </button>
+                                    <span class="contents-item-arrow">→</span>
+                                </div>
+                            </li>
+                            <!-- Grill AVF Callout -->
+                            <div class="grill-callout">
+                                <div class="grill-callout-title">⚠️ Important: Grill Assembly Notice</div>
+                                <div class="grill-callout-text">
+                                    The new assortment of grills has not been delivered to stores yet. Please use the <strong>Grill AVF 2025</strong> document (updated 6.1.25) for all current grill builds.
+                                </div>
+                                <button class="grill-callout-link" data-doc="Grill AVF 2025, updated 6.1.25.PDF">
+                                    📄 Open Grill AVF 2025
+                                </button>
+                            </div>
+
+                            <li class="contents-item" data-doc="Grill AVF 2025, updated 6.1.25.PDF">
+                                <span class="contents-item-icon">🔥</span>
+                                <div class="contents-item-text">
+                                    <div class="contents-item-title">Grill AVF 2025 (Current)</div>
+                                    <div class="contents-item-desc">Use this for current grill builds - Updated 6.1.25</div>
+                                </div>
+                                <div class="contents-item-actions">
+                                    <button class="download-single-btn" data-doc="Grill AVF 2025, updated 6.1.25.PDF" title="Download">
                                         ⬇️ <span>Download</span>
                                     </button>
                                     <span class="contents-item-arrow">→</span>
@@ -1188,6 +1275,12 @@
                         <input type="checkbox" id="chk-tools" value="Recommended Tools.pdf">
                         <label for="chk-tools">Recommended Tools</label>
                         <button class="item-download-btn" data-doc="Recommended Tools.pdf">⬇️</button>
+                    </div>
+
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="chk-grill-avf" value="Grill AVF 2025, updated 6.1.25.PDF">
+                        <label for="chk-grill-avf">Grill AVF 2025 (Current)</label>
+                        <button class="item-download-btn" data-doc="Grill AVF 2025, updated 6.1.25.PDF">⬇️</button>
                     </div>
 
                     <div class="checkbox-item">
@@ -1339,6 +1432,10 @@
                     <span class="toc-title">Using PROD</span>
                     <span class="toc-arrow">→</span>
                 </div>
+            </div>
+            <div class="grill-callout-toc">
+                <strong>⚠️ Grill Build Notice:</strong> The new assortment of grills has not been delivered to stores yet. Use the <strong>Grill AVF 2025</strong> document (updated 6.1.25) for all current grill builds.
+                <button class="grill-callout-link" id="grill-avf-toc-btn" style="margin-top: 8px; display: block;">📄 Open Grill AVF 2025</button>
             </div>
             <button class="assembly-contents-close" id="assembly-contents-close">Close</button>
         </div>
@@ -1824,6 +1921,27 @@
         // Store input validation
         storeInput.addEventListener('input', () => {
             storeError.classList.remove('show');
+        });
+
+        // Grill AVF callout buttons - load Grill AVF 2025 document
+        document.querySelectorAll('.grill-callout-link').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                e.stopPropagation();
+                const docName = btn.dataset.doc || 'Grill AVF 2025, updated 6.1.25.PDF';
+
+                // Update active state in header
+                document.querySelectorAll('.doc-link').forEach(l => {
+                    l.classList.toggle('active', l.dataset.doc === docName);
+                });
+
+                currentDocName = docName;
+                scale = 1.0;
+                zoomLevel.textContent = '100%';
+                await loadPdf(docName);
+
+                hideHomePage();
+                assemblyContentsOverlay.classList.remove('active');
+            });
         });
 
         // Utility functions
