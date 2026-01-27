@@ -1573,7 +1573,7 @@
                     <h3>Select Documents to Include:</h3>
 
                     <div class="checkbox-item">
-                        <input type="checkbox" id="chk-assembly" value="Furniture Assembly 01-20-2026.pdf" checked>
+                        <input type="checkbox" id="chk-assembly" value="Furniture Assembly 01-20-2026.pdf">
                         <label for="chk-assembly">Assembly Guide</label>
                         <button class="item-download-btn" data-doc="Furniture Assembly 01-20-2026.pdf">⬇️</button>
                     </div>
@@ -2100,6 +2100,13 @@
             }
         }
 
+        function updateSidebarSelection(docName) {
+            // Auto-select the viewed document in sidebar checkboxes
+            document.querySelectorAll('.checkbox-item input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = checkbox.value === docName;
+            });
+        }
+
         // Document selector toggle
         docSelectorBtn.addEventListener('click', () => {
             docSelector.classList.toggle('expanded');
@@ -2122,6 +2129,7 @@
                 await loadPdf(docName);
 
                 hideHomePage();
+                updateSidebarSelection(docName);
                 docSelector.classList.remove('expanded');
                 docSelectorBtn.classList.remove('active');
             });
@@ -2146,6 +2154,7 @@
                 await loadPdf(docName);
 
                 hideHomePage();
+                updateSidebarSelection(docName);
             });
         });
 
