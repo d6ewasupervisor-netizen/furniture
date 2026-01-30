@@ -52,12 +52,26 @@
             align-items: center;
             justify-content: space-between;
             gap: 10px;
+            position: relative;
+            min-height: 44px;
+        }
+
+        .header-left-buttons,
+        .header-right-buttons {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1;
         }
 
         .header h1 {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: 1.1rem;
-            flex: 1;
             text-align: center;
+            white-space: nowrap;
+            pointer-events: none;
         }
 
         .header-subtitle {
@@ -1313,11 +1327,21 @@
 
             .header h1 {
                 font-size: 0.95rem;
+                max-width: 50%;
+                white-space: normal;
+                line-height: 1.2;
             }
 
             .header-btn {
-                padding: 8px 10px;
-                font-size: 0.8rem;
+                padding: 10px 12px;
+                font-size: 0.85rem;
+                min-height: 44px;
+                min-width: 44px;
+                justify-content: center;
+            }
+
+            .header-btn span {
+                display: none;
             }
 
             .pdf-controls {
@@ -1345,19 +1369,31 @@
 
         @media (max-width: 480px) {
             .header {
-                padding: 10px 12px;
+                padding: 8px 10px;
+            }
+
+            .header-top {
+                min-height: 40px;
             }
 
             .header h1 {
-                font-size: 0.85rem;
+                font-size: 0.8rem;
+                max-width: 55%;
             }
 
-            .home-btn span {
+            .header-subtitle {
+                font-size: 0.65rem;
                 display: none;
             }
 
-            .doc-selector-btn span {
-                display: none;
+            .header-btn {
+                padding: 8px;
+                font-size: 1rem;
+            }
+
+            .header-left-buttons,
+            .header-right-buttons {
+                gap: 6px;
             }
 
             .pdf-controls {
@@ -1380,6 +1416,36 @@
             .download-single-btn span {
                 display: none;
             }
+
+            .doc-links {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .doc-link {
+                padding: 12px 14px;
+                justify-content: center;
+            }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 360px) {
+            .header h1 {
+                font-size: 0.7rem;
+                max-width: 50%;
+            }
+
+            .header-btn {
+                padding: 6px;
+                font-size: 0.9rem;
+                min-height: 38px;
+                min-width: 38px;
+            }
+
+            .header-left-buttons,
+            .header-right-buttons {
+                gap: 4px;
+            }
         }
     </style>
 </head>
@@ -1388,16 +1454,20 @@
         <!-- Header -->
         <header class="header">
             <div class="header-top">
-                <button class="header-btn home-btn" id="home-btn" title="Go to Contents">
-                    🏠 <span>Contents</span>
-                </button>
-                <button class="header-btn how-to-btn" id="how-to-btn" title="How To Use This Resource">
-                    ❓ <span>How To Use</span>
-                </button>
+                <div class="header-left-buttons">
+                    <button class="header-btn home-btn" id="home-btn" title="Go to Contents">
+                        🏠 <span>Contents</span>
+                    </button>
+                    <button class="header-btn how-to-btn" id="how-to-btn" title="How To Use This Resource">
+                        ❓ <span>How To Use</span>
+                    </button>
+                </div>
                 <h1>Assembly Resource Center<div class="header-subtitle">Select a document to view or download</div></h1>
-                <button class="header-btn doc-selector-btn" id="doc-selector-btn" title="Select Document">
-                    📄 <span>Documents</span>
-                </button>
+                <div class="header-right-buttons">
+                    <button class="header-btn doc-selector-btn" id="doc-selector-btn" title="Select Document">
+                        📄 <span>Documents</span>
+                    </button>
+                </div>
             </div>
             <div class="doc-selector" id="doc-selector">
                 <nav class="doc-links">
